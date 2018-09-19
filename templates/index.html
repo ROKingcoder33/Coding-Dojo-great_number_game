@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }} ">
+    <title>Great Number Game</title>
+</head>
+<body>
+    <div class="container text-center">
+        <div class="jumbotron mt-5">
+            <h1 class="mb-5 text-primary">Welcome to the Great Number Game!</h1>
+            <h2 class="mb-3">I am thinking of a number between 1 and 100</h2>
+            <h3>Take a guess!</h3>
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+            {% if session['verdict'] == "Correct" %}
+            <div class="bg-success text-white p-5 col-3">
+                <h1>You are <br> Correct!</h1>
+                <form action="/reset" method="post">
+                    <button type="submit" class="btn btn-danger mt-4">Play Again!</button>
+                </form>
+            </div>
+            {% elif session['verdict'] == "High" %}
+            <h1 class="bg-danger text-white p-5 col-3">Wow! That was HIGH</h1>
+            {% elif session['verdict'] == "Low" %}
+            <h1 class="bg-danger text-white p-5 col-3">LOL!<br> TOO LOW</h1>
+            {% endif %}
+        </div>
+        <form action="/youGuessed" method='post'>
+            <div class="form-group col-3 mx-auto">
+                <textarea name="chosenNum" id="" rows="2" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn-lg btn-success">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
